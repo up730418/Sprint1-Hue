@@ -49,6 +49,18 @@ const hue = jsHue();
 let ip = '';
 let bridge;
 let username;
+    
+$(document).ready(function(){
+    
+    $.get( "https://api.worldweatheronline.com/premium/v1/weather.ashx?key=590b219e42cc4cc1ba1130439172411&q=Portsmouth&format=json&num_of_days=1", 
+          
+        function( data ) {
+            var temperature = data.data.current_condition[0].temp_C;
+            console.log(temperature  + "C ");  
+    });
+    
+})
+    
 function selectUser() {
   $("#title").fadeOut(function() {
   $(this).text("World").fadeIn();
