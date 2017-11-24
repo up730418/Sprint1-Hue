@@ -1,0 +1,118 @@
+<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="custom.css">
+
+<script src="bootstrap.js"></script>
+<script src="custom.js"></script>
+<script src="jquery-3.2.1.min.js"></script>
+<script src="js/index.js"></script>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+  <div class="container">
+      <a class="navbar-brand" href="#">HueAssist</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Connect <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </nav>
+
+
+<div class="container">
+  <div id="titlse">
+<h1 id="title">Who will be using HueAssist?</h1>
+</div>
+
+<button type="button" class="btn btn-default btn-xl" onclick="selectUser()">Me</button>
+<button type="button" class="btn btn-default btn-xl">Someone else</button>
+<button type="button" class="btn btn-default btn-xl" onclick="connectBridge()">Connect</button>
+<button type="button" class="btn btn-default btn-xl" onclick="changeLights()">colour</button>
+<br/><br/>
+</div>
+
+<script>
+const hue = jsHue();
+let ip = '';
+let bridge;
+let username;
+function selectUser() {
+  $("#title").fadeOut(function() {
+  $(this).text("World").fadeIn();
+});
+}
+
+window.addEventListener('load', () => {
+  
+})
+
+function selectUser() {
+  hueshit(); 
+}
+
+function hueshit(){
+  hue.discover().then(bridges => {
+    if(bridges.length === 0) {
+        console.log('No bridges found. :(');
+    }
+    else {
+        bridges.forEach(b =>  {ip = b.internalipaddress 
+                                console.log(ip)
+                              });
+    }
+  }).catch(e => console.log('Error finding bridges', e));  
+}
+
+function connectBridge(){
+  bridge = hue.bridge(ip);
+  console.log(bridge);
+  // create user account (requires link button to be pressed)
+  bridge.createUser('myApp#testdevice').then(data => {
+      
+    if(data[0].error !== undefined){
+        console.log(data[0].error.description);
+
+      }else{
+        
+        // extract bridge-generated username from returned data
+        username = data[0].success.username;
+
+        console.log('New username:', username);
+
+        // instantiate user object with username
+        user = bridge.user(username);
+        
+        //user.setLightState(1, { on: true }).then(data => {
+        // process response data, do other things
+        //});
+
+      }
+  });
+}
+function changeLights() {
+  user.getLights().then((res) => {
+    for(i in res) { 
+      //console.log(i)
+      changeLight(i, 50, 50, 50, true)
+    }
+  })
+}
+
+function changeLight(num, bri, hue, sat, on) {
+  
+  user.setLightState(num, {"on": on,"bri": bri,"sat": sat,"hue": hue})
+}
+</script>
