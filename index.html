@@ -47,6 +47,7 @@
 <script>
 const hue = jsHue();
 let ip = '';
+let lights = 0;
 let bridge;
 let username;
     
@@ -114,11 +115,12 @@ function connectBridge(){
       }
   });
 }
-function changeLights() {
+function changeLights(bri, hue, sat, on) {
   user.getLights().then((res) => {
     for(i in res) { 
       //console.log(i)
-      changeLight(i, 50, 50, 50, true)
+      lights + 1;
+      changeLight(i, bri, hue, sat, on)
     }
   })
 }
@@ -126,5 +128,23 @@ function changeLights() {
 function changeLight(num, bri, hue, sat, on) {
   
   user.setLightState(num, {"on": on,"bri": bri,"sat": sat,"hue": hue})
+}
+
+function party(){
+  let max = 65280;
+  let min = 0;
+  let rand = Math.floor(Math.random() * (max - min) + min);
+  console.log(rand);
+  changeLights(255, rand, 255, true);
+}
+
+function party2() {
+  for(let i=1; i <= 3; i++) { 
+    let max = 65280;
+    let min = 0;
+    let rand = Math.floor(Math.random() * (max - min) + min);
+    console.log(rand);
+    changeLight(i, 255, rand, 255, true);
+  }
 }
 </script>
