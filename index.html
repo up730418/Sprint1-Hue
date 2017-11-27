@@ -6,6 +6,9 @@
 <script src="jquery-3.2.1.min.js"></script>
 <script src="js/index.js"></script>
 
+<!-- <script> data = JSON.parse('[{"question":"why","options":["option1","option2"]},{"question":"what","options":["option1","option2"]},{"question":"where","options":["option1","option2"]},{"question":"who","options":["option1","option2"]}]') </script> -->
+<!-- <script> data = JSON.parse('[{"id":1,"question":"Who will be using HUEAssist?","options":["Me","Someone Else"]},{"id":2,"question":"Do you have any of the following conditions?","options":["Colour Blindness","Dementia","C.I.P","Other"]},{"id":"3","question":"Do you have another condition?","options":["Yes","No"]},{"id":"4","question":"who","options":["option1","option2"]}]') </script> -->
+<script> data = JSON.parse('[{"id":1,"question":"Who will be using HUEAssist?","options":[{"name":"Me","target":2},{"name":"Someone Else","target":4}]},{"id":2,"question":"Do you have any of the following conditions?","options":[{"name":"Colour Blindness","target":2.1},{"name":"Dementia","target":2.2},{"name":"C.I.P","target":4},{"name":"None","target":4}]},{"id":"2.1","question":"What type of colourblindness?","options":[{"name":"Red-Green","target":3},{"name":"Blue-Yellow","target":3},{"name":"Complete","target":3}]},{"id":"2.2","question":"How Severe is your Dementia?","options":[{"name":"Early-stage (4)","target":3},{"name":"Mid-stage (5-6)","target":3},{"name":"Late-stage (7)","target":3}]},{"id":"3","question":"Do you have another condition?","options":[{"name":"Yes","target":2},{"name":"No","target":4}]},{"id":"4","question":"Lets Connect to your Hue.","options":[{"name":"Connect!","target":0}]}]')</script>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
   <div class="container">
       <a class="navbar-brand" href="#">HueAssist</a>
@@ -32,106 +35,141 @@
     </nav>
 
 
-<div class="container">
-  <div id="titlse">
-<h1 id="title">Who will be using HueAssist?</h1>
+<div class="container" id="main">
 </div>
 
-<button type="button" class="btn btn-default btn-xl" onclick="selectUser()">Me</button>
-<button type="button" class="btn btn-default btn-xl">Someone else</button>
-<button type="button" class="btn btn-default btn-xl" onclick="connectBridge()">Connect</button>
-<button type="button" class="btn btn-default btn-xl" onclick="changeLights()">colour</button>
-<br/><br/>
-</div>
+
+<style>
+
+
+
+.node {
+}
+
+.buttonContain {
+      text-align: justify;
+      display: inline-block;
+}
+</style>
+
 
 <script>
+var currentQuestionID = 1;
+var answers = [];
+var randID = Math.random();
+// answers.pop({"question":getTargetQuestion(data,1).question,"answer":
+//This is so we can distinguish two differnt instances of the same question (state 2 and 3)
+
+newQuestion(1);
+
+function getTargetQuestion(source,target)
+{
+  for(var i = 0; i < source.length; i++)
+
+{
+  if(source[i].id == target)
+  {
+    return source[i];
+  }
+}
+}
+
+function newQuestion(index)
+{
+  //gets chosen question
+  var chosen = getTargetQuestion(data,index)
+  console.log(chosen);
+
+  //gets the container
+  var main = document.getElementById('main');
+
+  //creates question node
+  main.innerHTML += '<div class="node" id="node'+randID+'">';
+
+  //title
+  var node = document.getElementById('node'+randID);
+  node.innerHTML += '<h1 id="title">'+chosen.question+'</h1>';
+
+  //Buttons
+  node.innerHTML += '<div id="button'+randID+'" class="buttonContain">';
+
+  var buttonContain = document.getElementById('button'+randID);
+
+  var numOfOptions = chosen.options.length;
+  for (var i = 0; i < numOfOptions; i++) {
+      buttonContain.innerHTML += '<button type="button" onClick="onOptionClick("'+chosen.options[i].target+','+chosen.options[i].name+'")" class="btn btn-default btn-l">'+ chosen.options[i].name +'</button> ';
+  }
+  currentQuestionID = index;
+
+}
+
+function onOptionClick(target,answer){
+    answers.pop({"question":getTargetQuestion(data,target).question,"answer": answer,"randID": randID});
+    randID = Math.ramdom();
+    newQuestion(target);
+    answers.push(getTargetQuestion(target));
+    console.log(answers);
+  }
+
+// function dimQuestion(index){
+//   var node = document.getElementById('node'+index);
+//   node.style.color = "grey";
+//
+//   $('#button'+index+' :input').attr('disabled', true);
+//
+// }
+</script>
+<!-- <script>
 const hue = jsHue();
 let ip = '';
 let lights = 0;
 let bridge;
 let username;
-let hueData = {};
 
 $(document).ready(function(){
-    
-          
 
-});
-    
-    
+    $.get( "https://api.worldweatheronline.com/premium/v1/weather.ashx?key=590b219e42cc4cc1ba1130439172411&q=Portsmouth&format=json&num_of_days=1",
+
+        function( data ) {
+            var temperature = data.data.current_condition[0].temp_C;
+            console.log(temperature  + "C ");
+    });
+
+})
 function selectUser() {
   $("#title").fadeOut(function() {
   $(this).text("World").fadeIn();
 });
 }
-
 window.addEventListener('load', () => {
-      //GET DATA
-     fetch("https://api.worldweatheronline.com/premium/v1/weather.ashx?key=590b219e42cc4cc1ba1130439172411&q=Portsmouth&format=json&num_of_days=1")
-      //Turn Response to json
-       .then((resp) => resp.json()) 
-        // Handle Data
-       .then((data) => {
-            //get current temp
-            const temperature = data.data.current_condition[0].temp_C;
-            //get current date/time
-            let currentDate = new Date()
-            // Get current Time
-            let currentTime =  currentDate.getHours().toString() + currentDate.getMinutes().toString();
-            let nextTemp;
-            let chanceOfRain;
-            //Get current % chance of rain
-            for(hour of  data.data.weather[0].hourly){
-                //If time section is the next period return that % chance of rain
-                if(parseInt(hour.time) >= parseInt(currentTime)) {
-                  chanceOfRain = hour.chanceofrain;
-                  nextTemp = hour.tempC;
-                  break;
-                }
-              
-            }
-       
-          console.log("chace rain", hour.chanceofrain, "temp Current", temperature, "temp next", hour.tempC);
-     })
+
 })
-
 function selectUser() {
-  hueshit(); 
+  hueshit();
 }
-
 function hueshit(){
-  // If already conected before re connect and change lights as conformation
-  if(localStorage.hueData){
-    console.log("connecting from saved user");
-    hueData = localStorage.hueData;
-    bridge = hue.bridge(hueData.ip);
-    user = bridge.user(hueData.username);
-    party();
-  }
-  
   hue.discover().then(bridges => {
     if(bridges.length === 0) {
         console.log('No bridges found. :(');
     }
     else {
-        bridges.forEach(b =>  {ip = b.internalipaddress 
+        bridges.forEach(b =>  {ip = b.internalipaddress
                                 console.log(ip)
                               });
     }
-  }).catch(e => console.log('Error finding bridges', e));  
+  }).catch(e => console.log('Error finding bridges', e));
 }
-
 function connectBridge(){
   bridge = hue.bridge(ip);
   console.log(bridge);
   // create user account (requires link button to be pressed)
   bridge.createUser('myApp#testdevice').then(data => {
-      
+
     if(data[0].error !== undefined){
         console.log(data[0].error.description);
 
       }else{
-        
+
         // extract bridge-generated username from returned data
         username = data[0].success.username;
 
@@ -139,10 +177,7 @@ function connectBridge(){
 
         // instantiate user object with username
         user = bridge.user(username);
-        hueData.ip = ip;
-        hueData.username = username;
-        
-        localStorage.hueData = JSON.stringify(hueData);
+
         //user.setLightState(1, { on: true }).then(data => {
         // process response data, do other things
         //});
@@ -152,19 +187,17 @@ function connectBridge(){
 }
 function changeLights(bri, hue, sat, on) {
   user.getLights().then((res) => {
-    for(i in res) { 
+    for(i in res) {
       //console.log(i)
       lights + 1;
       changeLight(i, bri, hue, sat, on)
     }
   })
 }
-
 function changeLight(num, bri, hue, sat, on) {
-  
+
   user.setLightState(num, {"on": on,"bri": bri,"sat": sat,"hue": hue})
 }
-
 function party(){
   let max = 65280;
   let min = 0;
@@ -172,9 +205,8 @@ function party(){
   console.log(rand);
   changeLights(255, rand, 255, true);
 }
-
 function party2() {
-  for(let i=1; i <= 3; i++) { 
+  for(let i=1; i <= 3; i++) {
     let max = 65280;
     let min = 0;
     let rand = Math.floor(Math.random() * (max - min) + min);
@@ -182,4 +214,4 @@ function party2() {
     changeLight(i, 255, rand, 255, true);
   }
 }
-</script>
+</script> -->
