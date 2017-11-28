@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+	"title": "We're here to help guide you.",
+	"description": "Read through each of the questions on the left hand side and select the answer accordingly.Don't sorry if you make a mistake, just click the colourful back button to go a step! HUEAssist is designed to support you.",
+    "question": "Who will be using HUEAssist?",
+    "options": [
+      {
+        "name": "Me",
+        "target": 2
+      },
+      {
+        "name": "Someone Else",
+        "target": 4
+      }
+    ]
+  },
+  {
+    "id": 2,
+	"title": "Help us, Help You.",
+	"description": "Telling us any conditions you suffer from can help us customise the options just for you. Don't worry about your medical data leaking becuase we haven't met anyone who's willing to pay us for it yet.",
+    "question": "Do you have any of the following conditions?",
+    "options": [
+      {
+        "name": "Colour Blindness",
+        "target": 2.1
+      },
+      {
+        "name": "Dementia",
+        "target": 2.2
+      },
+      {
+        "name": "C.I.P",
+        "target": 3
+      },
+      {
+        "name": "None",
+        "target": 4
+      }
+    ]
+  },
+  {
+    "id": "2.1",
+    "question": "What type of colourblindness?",
+	"title": "Colour Vision Deficiency (CVD)",
+	"description": "Telling us which type of colourblindness you have allows us to enhance the Hue experience, Colour pallets will be generated and will excluded colours that aren't relvent to you. No need to panic, we have you back, mate!",
+    "options": [
+      {
+        "name": "Red-Green",
+        "target": 3
+      },
+      {
+        "name": "Blue-Yellow",
+        "target": 3
+      },
+      {
+        "name": "Complete",
+        "target": 3
+      }
+    ]
+  },
+  {
+    "id": "2.2",
+    "question": "How Severe is your Dementia?",
+	"title": "Global Deterioration Scale (GDS)",
+	"description": "A sensitive subject, but an important one. This information will adjust the aggression of the Hue lights. Warning/Notifications and Alarms will be brighted and more frequent.",
+    "options": [
+      {
+        "name": "Early-stage (4)",
+        "target": 3
+      },
+      {
+        "name": "Mid-stage (5-6)",
+        "target": 3
+      },
+      {
+        "name": "Late-stage (7)",
+        "target": 3
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "question": "Do you have another condition?",
+	"title": "We're adding more all the time!",
+	"description": "Thanks to the internet, we've been able to research the most obscure, rare and outright hilarious diseases and infections. We're constantly coming up with new ways we can make money so stay tuned!",
+    "options": [
+      {
+        "name": "Yes",
+        "target": 2
+      },
+      {
+        "name": "No",
+        "target": 4
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "question": "Lets Connect to your Hue.",
+	"title": "Fuck. It's been fun.",
+	"description": "I'll never forget you, how could I? With blue eyes, long hair like that and stage 5 dementia theres no way I could forget you.",
+    "options": [
+      {
+        "name": "Connect!",
+        "target": 0
+      }
+    ]
+  }
+]
