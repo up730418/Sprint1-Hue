@@ -1,4 +1,27 @@
 function colourValue(steps,  colours, value){
+  // If a negative number reverse the array and turn the negative number to positive
+  if(value < 0){
+    value =- value;
+    colours.reverse()
+  }
+  
+  //Error handling
+  if(typeof(value) !== "number"){
+    console.error("Please eneter a number not a string for the value");
+    return 0;
+  }
+  if(typeof(steps) !== "number"){
+    console.error("Please eneter a number not a string for the step value");
+    return 0;
+  }
+  if(typeof(colours) !== "object"){
+    console.error("Please eneter an array for your colour choices");
+    return 0;
+  }
+  if(value > ((colours.length) * steps)){
+    console.error("Value is out of range. Either enter more colours or increase the amount of steps per colour..");
+    return 0;
+  }
   
   //Base colour values
   const colourValues = {
@@ -8,6 +31,7 @@ function colourValue(steps,  colours, value){
     "pink": 56100,
     "red": 0,
   }
+  
   
 //Range between each colour
   const colourLength = 12750;
@@ -24,14 +48,17 @@ function colourValue(steps,  colours, value){
     stepValue = step * stepNumber;
     
   }
-
+ console.error(stepValue)
 //Get which index of the array should be chossen
   const colourToPick = value == 0 ? 0 :  Math.ceil(value/steps) - 1;
+ console.error(colourToPick)
   
 //Get colour from the colours array
   const colour = colours[colourToPick];
+ console.error(colour)
 //set the colur value that should be sent to the hue
   const colourValue = colourValues[colour] + stepValue;
+ console.error(colourValue)
   
   return colourValue;
   
