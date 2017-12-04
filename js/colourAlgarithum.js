@@ -1,5 +1,5 @@
 function colourValue(steps,  colours, value){
-  // If a negative number reverse the array and turn the negative number to positive
+  // If value is a negative number reverse the array and turn the negative number to positive
   if(value < 0){
     value =- value;
     colours.reverse()
@@ -48,17 +48,13 @@ function colourValue(steps,  colours, value){
     stepValue = step * stepNumber;
     
   }
- console.error(stepValue)
 //Get which index of the array should be chossen
   const colourToPick = value == 0 ? 0 :  Math.ceil(value/steps) - 1;
- console.error(colourToPick)
   
 //Get colour from the colours array
   const colour = colours[colourToPick];
- console.error(colour)
 //set the colur value that should be sent to the hue
   const colourValue = colourValues[colour] + stepValue;
- console.error(colourValue)
   
   return colourValue;
   
