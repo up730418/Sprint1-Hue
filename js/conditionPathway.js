@@ -1,17 +1,17 @@
 //Features
-var features = JSON.parse('[{"name":"Ping","description":"To quickly test the bulb connectivity, this function sends a signal to all connected bulbs to universally change to one colour and back again.","settings":[{"type":"colour","defValue":"blue"}],"functionToRun": "ping"}, {"name":"Check Weather","description":"Weather app bro",  "functionToRun": "getWeatherData()" }]');
+const features = JSON.parse('[{"name":"Ping","description":"To quickly test the bulb connectivity, this function sends a signal to all connected bulbs to universally change to one colour and back again.","settings":[{"type":"colour","defValue":"blue"}],"functionToRun": "ping"}, {"name":"Check Weather","description":"Weather app bro",  "functionToRun": "getWeatherData()" }]');
 
 //Question and answers in the form of JSON
-var data = JSON.parse('[{"id":1,"heading":"We re here to help guide you.","description":"Read through each of the questions on the left hand side and select the answer accordingly.Don t sorry if you make a mistake, just click the colourful back button to go a step! HUEAssist is designed to support you.","question":"Who will be using HUEAssist?","options":[{"name":"Me","target":2},{"name":"Someone Else","target":4}]},{"id":2,"heading":"Help us, Help You.","description":"Telling us any conditions you suffer from can help us customise the options just for you. Don t worry about your medical data leaking becuase we haven t met anyone who s willing to pay us for it yet.","question":"Do you have any of the following conditions?","options":[{"name":"Colour Blindness","target":2.1},{"name":"Dementia","target":2.2},{"name":"C.I.P","target":3},{"name":"None","target":4}]},{"id":"2.1","question":"What type of colourblindness?","heading":"Colour Vision Deficiency (CVD)","description":"Telling us which type of colourblindness you have allows us to enhance the Hue experience, Colour pallets will be generated and will excluded colours that aren t relvent to you. No need to panic, we have you back, mate!","options":[{"name":"Red-Green","target":3},{"name":"Blue-Yellow","target":3},{"name":"Complete","target":3}]},{"id":"2.2","question":"How Severe is your Dementia?","heading":"Global Deterioration Scale (GDS)","description":"A sensitive subject, but an important one. This information will adjust the aggression of the Hue lights. Warning/Notifications and Alarms will be brighted and more frequent.","options":[{"name":"Early-stage (4)","target":3},{"name":"Mid-stage (5-6)","target":3},{"name":"Late-stage (7)","target":3}]},{"id":"3","question":"Do you have another condition?","heading":"We re adding more all the time!","description":"Thanks to the internet, we ve been able to research the most obscure, rare and outright hilarious diseases and infections. We re constantly coming up with new ways we can make money so stay tuned!","options":[{"name":"Yes","target":2},{"name":"No","target":4}]},{"id":"4","question":"Lets Connect to your Hue.","heading":"Fuck. It s been fun.","description":"I ll never forget you, how could I? With blue eyes, long hair like that and stage 5 dementia theres no way I could forget you.","options":[{"name":"Connect!","target":0}]}]');
-var counter = 0;
-var currentQuestionID = 1;
-var answers = [];
-var backColours = ["btn-success","btn-info","btn-warning","btn-danger"];
-var colourindex = 0;
-var randID = Math.random();
+const data = JSON.parse('[{"id":1,"heading":"We re here to help guide you.","description":"Read through each of the questions on the left hand side and select the answer accordingly.Don t sorry if you make a mistake, just click the colourful back button to go a step! HUEAssist is designed to support you.","question":"Who will be using HUEAssist?","options":[{"name":"Me","target":2},{"name":"Someone Else","target":4}]},{"id":2,"heading":"Help us, Help You.","description":"Telling us any conditions you suffer from can help us customise the options just for you. Don t worry about your medical data leaking becuase we haven t met anyone who s willing to pay us for it yet.","question":"Do you have any of the following conditions?","options":[{"name":"Colour Blindness","target":2.1},{"name":"Dementia","target":2.2},{"name":"C.I.P","target":3},{"name":"None","target":4}]},{"id":"2.1","question":"What type of colourblindness?","heading":"Colour Vision Deficiency (CVD)","description":"Telling us which type of colourblindness you have allows us to enhance the Hue experience, Colour pallets will be generated and will excluded colours that aren t relvent to you. No need to panic, we have you back, mate!","options":[{"name":"Red-Green","target":3},{"name":"Blue-Yellow","target":3},{"name":"Complete","target":3}]},{"id":"2.2","question":"How Severe is your Dementia?","heading":"Global Deterioration Scale (GDS)","description":"A sensitive subject, but an important one. This information will adjust the aggression of the Hue lights. Warning/Notifications and Alarms will be brighted and more frequent.","options":[{"name":"Early-stage (4)","target":3},{"name":"Mid-stage (5-6)","target":3},{"name":"Late-stage (7)","target":3}]},{"id":"3","question":"Do you have another condition?","heading":"We re adding more all the time!","description":"Thanks to the internet, we ve been able to research the most obscure, rare and outright hilarious diseases and infections. We re constantly coming up with new ways we can make money so stay tuned!","options":[{"name":"Yes","target":2},{"name":"No","target":4}]},{"id":"4","question":"Lets Connect to your Hue.","heading":"Fuck. It s been fun.","description":"I ll never forget you, how could I? With blue eyes, long hair like that and stage 5 dementia theres no way I could forget you.","options":[{"name":"Connect!","target":0}]}]');
+let counter = 0;
+let currentQuestionID = 1;
+let answers = [];
+const backColours = ["btn-success","btn-info","btn-warning","btn-danger"];
+let colourindex = 0;
+let randID = Math.random();
 
-var currentQuestion;
-var previousQuestion;
+let currentQuestion;
+let previousQuestion;
 let hueColours = [];
 // answers.pop({"question":getTargetQuestion(data,1).question,"answer":
 //This is so we can distinguish two differnt instances of the same question (state 2 and 3)
@@ -21,8 +21,8 @@ window.addEventListener('load', ()=>{
 
 function updateInfo(question) {
   previousQuestion = question;
-  var heading = document.getElementById("infoTitle");
-  var description = document.getElementById("infoDescription");
+  const heading = document.getElementById("infoTitle");
+  const description = document.getElementById("infoDescription");
   heading.innerHTML = question.heading;
   description.innerHTML = question.description;
 }
@@ -31,7 +31,7 @@ function onBackClick() {
   removeQuestion();
 
   //gets previous question
-  var questionToRestore = answers.pop();
+  let questionToRestore = answers.pop();
   answers.push(questionToRestore);
 
   //resets randomID
@@ -45,13 +45,13 @@ function onBackClick() {
 }
 
 function removeQuestion(){
-  var nodeId = "node" + randID;
-  var elem = document.getElementById(nodeId);
+  const nodeId = "node" + randID;
+  const elem = document.getElementById(nodeId);
 
   elem.remove();
 }
 function getTargetQuestionByQuestion(source, target) {
-    for (var i = 0; i < source.length; i++)
+    for (let i = 0; i < source.length; i++)
     {
         if (source[i].question == target) {
             return source[i];
@@ -60,7 +60,7 @@ function getTargetQuestionByQuestion(source, target) {
 }
 
 function getTargetQuestion(source, target) {
-    for (var i = 0; i < source.length; i++)
+    for (let i = 0; i < source.length; i++)
     {
         if (source[i].id == target) {
             return source[i];
@@ -74,16 +74,16 @@ function newQuestion(index) {
     counter +=1;
     //gets chosen question
 
-    var chosen = getTargetQuestion(data, index)
+    const chosen = getTargetQuestion(data, index)
 
     //gets the container
-    var main = document.getElementById('main');
+    const main = document.getElementById('main');
 
     //creates question node
     main.innerHTML += '<div class="node" id="node' + randID + '">';
 
     //heading
-    var node = document.getElementById('node' + randID);
+    const node = document.getElementById('node' + randID);
     node.innerHTML += '<h1 id="heading">' + chosen.question + '</h1>';
 
     //text
@@ -93,7 +93,7 @@ function newQuestion(index) {
     //Buttons
     node.innerHTML += '<div id="button' + randID + '" class="buttonContain">';
 
-    var buttonContain = document.getElementById('button' + randID);
+    const buttonContain = document.getElementById('button' + randID);
 
 
 
@@ -108,11 +108,11 @@ function newQuestion(index) {
         buttonContain.innerHTML += '<button type="button" onClick="onBackClick()" class="btn '+backColour+' btn-l">↱</button> ';
     }
 
-    var numOfOptions = chosen.options.length;
+    const numOfOptions = chosen.options.length;
     for (var i = 0; i < numOfOptions; i++) {
 
-      var answer = chosen.options[i].name;
-      var target = chosen.options[i].target;
+      const answer = chosen.options[i].name;
+      const target = chosen.options[i].target;
 
          // buttonContain.innerHTML += '<button type="button" onClick="onOptionClick(' + chosen.options[i].target +',' +chosen.options[i].name +'")" class="btn btn-default btn-l">' + chosen.options[i].name + '</button> ';
          buttonContain.innerHTML += '<button type="button" onClick="onOptionClick('+`'`+answer+`'`+','+target+')" class="btn btn-default btn-l">' + answer + '</button> ';
@@ -124,7 +124,7 @@ function newQuestion(index) {
 
 //loop through all functions and generate
 function showFunctions(){
-  var mainContent = document.getElementById('content');
+  const mainContent = document.getElementById('content');
   //divides page into 50/50
   mainContent.innerHTML = '<div class="col-sm-6" id="leftSide"></div><div class="col-sm-6" id="rightSide"></div>';
 
@@ -145,28 +145,6 @@ console.log(name);
 showFeatureSettings(name);
 }
 
-function showFeatureSettings(name){
-  var result = $.grep(features, function(e){ return e.name == name; });
-  console.log(result);
-  var rightSide = document.getElementById('rightSide');
-  var settings = result[0].settings;
-  console.log(settings);
-  for (var i = 0; i < settings.length; i++) {
-  var settingType = settings[i].type;
-
-    if(settingType == "colour") {
-      rightSide.innerHTML += '<div id="color-picker" class="cp-default"></div>';
-      ColorPicker(
-        document.getElementById('color-picker'),
-        function(hex, hsv, rgb) {
-          console.log(hsv.h, hsv.s, hsv.v);         // [0-359], [0-1], [0-1]
-          // console.log(rgb.r, rgb.g, rgb.b);         // [0-255], [0-255], [0-255]
-          party();
-        });
-    }
-  }
-}
-
 function ping(){
   rightSide.innerHTML += '<div id="color-picker" class="cp-default"></div>';
   ColorPicker(
@@ -178,10 +156,8 @@ function ping(){
     });
 }
 
-
-
 function wipeScreen() {
-  var mainContent = document.getElementById('content');
+  const mainContent = document.getElementById('content');
   mainContent.innerHTML = '<div class="col-sm-9" style="text-align: center;"><h2>Searching for Hue Bridge.</h2><h5>Remember to press the Link button</h5><button type="button" class="btn btn-default btn-l" onclick="startSearching()">Connect</button><div class="loader">Loading...</div></div><div class="col-sm-3"></div>';
 }
 
@@ -204,12 +180,12 @@ function onOptionClick(answer,target) {
   }
 
   function restoreQuestion() {
-    var node = document.getElementById('node'+randID);
-    var containId = "button"+randID;
+    const node = document.getElementById('node'+randID);
+    const containId = "button"+randID;
 
     //reenable Buttons
-    var nodes = document.getElementById(containId).getElementsByTagName('*');
-    for(var i = 0; i < nodes.length; i++){
+    const nodes = document.getElementById(containId).getElementsByTagName('*');
+    for(let i = 0; i < nodes.length; i++){
          nodes[i].disabled = false;
     }
     node.style.color = "black";
@@ -219,17 +195,17 @@ function onOptionClick(answer,target) {
   }
 
 function startTimer(hr,min,sec) {
-  var x = {
+  let x = {
       hours: hr,
       minutes: min,
       seconds: sec
     };
 
-    var dtAlarm = new Date();
+    const dtAlarm = new Date();
     dtAlarm.setHours(x.hours);
     dtAlarm.setMinutes(x.minutes);
     dtAlarm.setSeconds(x.seconds);
-    var dtNow = new Date();
+    const dtNow = new Date();
 
     if (dtAlarm - dtNow > 0) {
       console.log('Later today, no changes needed!');
@@ -239,29 +215,29 @@ function startTimer(hr,min,sec) {
       dtAlarm.setDate(dtAlarm.getDate() + 1);
     }
 
-    var diff = dtAlarm - new Date();
+    const diff = dtAlarm - new Date();
     setTimeout(function(){ alert("Hello"); }, diff);
 
 }
 function dimQuestion() {
   //I can simply get the head of the queue
-  var previousQuestionID = answers[answers.length-1].randID;
-  var node = document.getElementById('node'+previousQuestionID);
+  const previousQuestionID = answers[answers.length-1].randID;
+  const node = document.getElementById('node'+previousQuestionID);
   node.style.color = "grey";
-  var containId = "button"+previousQuestionID;
-  var nodes = document.getElementById(containId).getElementsByTagName('*');
-  for(var i = 0; i < nodes.length; i++){
+  const containId = "button"+previousQuestionID;
+  const nodes = document.getElementById(containId).getElementsByTagName('*');
+  for(let i = 0; i < nodes.length; i++){
        nodes[i].disabled = true;
   }
 
 }
 
 function colourSchemes()  {
-  redGreen = answers.find((ans) => {return ans.answer = "Red-Green"});
+  const redGreen = answers.find((ans) => {return ans.answer = "Red-Green"});
 
-  blueYellow = answers.find((ans) => {return ans.answer = "Blue-Yellow"});
+  const blueYellow = answers.find((ans) => {return ans.answer = "Blue-Yellow"});
 
-  complete = answers.find((ans) => {return ans.answer = "Complete"});
+  const complete = answers.find((ans) => {return ans.answer = "Complete"});
 
   if (redGreen !== "undefined") {
     hueColours = ["blue", "yellow"]

@@ -38,6 +38,7 @@ function party(){
   console.log(rand);
   changeLights(255, rand, 255, true);
 }
+
 function party2() {
   for(let i=1; i <= 3; i++) {
     let max = 65280;
@@ -47,6 +48,7 @@ function party2() {
     changeLight(i, 255, rand, 255, true);
   }
 }
+
 function connectBridge(){
   bridge = hue.bridge(ip);
   console.log(bridge);
@@ -78,6 +80,7 @@ function connectBridge(){
       }
   });
 }
+
 function findHue(){
   // If already conected before re connect and change lights as conformation
   if(localStorage.hueData){
