@@ -23,7 +23,7 @@ function changeLightsHue(hue) {
   user.getLights().then((res) => {
     for(i in res) {
       lights + 1;
-      changeLight(i, 255, hue, 255, "on")
+      changeLight(i, 255, hue, 255, true)
     }
   })
 }

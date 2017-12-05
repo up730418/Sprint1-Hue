@@ -13,6 +13,7 @@ let randID = Math.random();
 let currentQuestion;
 let previousQuestion;
 let hueColours = [];
+let colourSteps = 10;
 // answers.pop({"question":getTargetQuestion(data,1).question,"answer":
 //This is so we can distinguish two differnt instances of the same question (state 2 and 3)
 window.addEventListener('load', ()=>{
@@ -240,12 +241,18 @@ function colourSchemes()  {
   const complete = answers.find((ans) => {return ans.answer = "Complete"});
 
   if (redGreen !== "undefined") {
-    hueColours = ["blue", "yellow"]
-  }
-  if (blueYellow !== "undefined") {
-    hueColours = ["red", "green"]
-  }
-  if (complete !== "undefined") {
-    hueColours = ["yellow", "red"]
+    hueColours = ["blue", "yellow"];
+    colourSteps = 25;
+  } else if (blueYellow !== "undefined") {
+    hueColours = ["red", "green"];
+    colourSteps = 25;
+
+  } else if (complete !== "undefined") {
+    hueColours = ["yellow", "red"];
+    colourSteps = 25;
+
+  } else {
+    hueColours = ["blue", "red", "green", "yellow", "red", "pink"];
+    colourSteps = 10;
   }
 }

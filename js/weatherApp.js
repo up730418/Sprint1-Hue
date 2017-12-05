@@ -24,9 +24,9 @@ function getWeatherData(){
             }
 
         }
-      let colourToHue = colourValue(10,  hueColours, parseInt(hour.tempC));
+      let colourToHue = colourValue(colourSteps,  hueColours, parseInt(hour.tempC));
 
       console.log("chace rain", hour.chanceofrain, "temp Current", temperature, "temp next", hour.tempC, "colour Value", colourToHue);
-      changeLightsHue(colourToHue)
+      changeLightsHue(colourToHue);
   })
  }
