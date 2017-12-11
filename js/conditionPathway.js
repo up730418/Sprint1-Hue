@@ -166,6 +166,7 @@ function onOptionClick(answer,target) {
 
     if(target==0) {
       wipeScreen();
+      startSearching();
       colourSchemes();
       return 0;
     }
@@ -234,25 +235,25 @@ function dimQuestion() {
 }
 
 function colourSchemes()  {
-  const redGreen = answers.find((ans) => {return ans.answer = "Red-Green"});
+  const redGreen = answers.find((ans) => {return ans.answer == "Red-Green"});
 
-  const blueYellow = answers.find((ans) => {return ans.answer = "Blue-Yellow"});
+  const blueYellow = answers.find((ans) => {return ans.answer == "Blue-Yellow"});
 
-  const complete = answers.find((ans) => {return ans.answer = "Complete"});
+  const complete = answers.find((ans) => {return ans.answer == "Complete"});
 
-  if (redGreen !== "undefined") {
+  if (redGreen !== undefined) {
     hueColours = ["blue", "yellow"];
     colourSteps = 25;
-  } else if (blueYellow !== "undefined") {
+  } else if (blueYellow !== undefined) {
     hueColours = ["red", "green"];
     colourSteps = 25;
 
-  } else if (complete !== "undefined") {
+  } else if (complete !== undefined) {
     hueColours = ["yellow", "red"];
     colourSteps = 25;
 
   } else {
-    hueColours = ["blue", "red", "green", "yellow", "red", "pink"];
+    hueColours = ["blue", "green", "yellow", "red", "pink"];
     colourSteps = 10;
   }
 }

@@ -3,6 +3,7 @@ let ip = '';
 let lights = 0;
 let bridge;
 let username;
+let hueData = {};
 
 function startSearching(){
   findHue();
@@ -67,6 +68,8 @@ function connectBridge(){
 
         // instantiate user object with username
         user = bridge.user(username);
+        hueData = {};
+      
         hueData.ip = ip;
         hueData.username = username;
 
@@ -88,7 +91,7 @@ function findHue(){
     hueData = localStorage.hueData;
     bridge = hue.bridge(hueData.ip);
     user = bridge.user(hueData.username);
-    party();
+    //party();
   }
 
   hue.discover().then(bridges => {
