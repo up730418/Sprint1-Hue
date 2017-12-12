@@ -30,4 +30,3 @@ function getWeatherData(){
       changeLightsHue(colourToHue);
   })
  }
-//changeLightsHue(colourValue(colourSteps,  hueColours, parseInt(hour.tempC)));
