@@ -1,4 +1,6 @@
-# Using a light source to indicate temperature
+# Using light to indicat data. A basic framework
+
+This framework uses Phillips Hues as the light source. It contains a basic weather application and a platform that is meant to be easily extensible. It was designed originally to help test how an light sources can be manipulated so that data can be transmitted for users with Colour Vision Deficiency (CVD).
 
 ## Using the condition pathway data
 
