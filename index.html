@@ -1,187 +1,62 @@
-<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="custom.css">
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/custom.css">
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+<link rel="stylesheet" type="text/css" href="css/themes.css" />
 
-<script src="bootstrap.js"></script>
-<script src="custom.js"></script>
-<script src="jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/colorpicker.js"></script>
+<script src="bootstrap/bootstrap.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/jquery-3.2.1.min.js"></script>
 <script src="jshue/src/jshue.js"></script>
-<script src="js/colourAlgarithum.js"></script>
+
+<script src="js/colourAlgarithm.js"></script>
+<script src="js/conditionPathway.js"></script>
+<script src="js/hueComands.js"></script>
+<script src="js/weatherApp.js"></script>
+
+<!-- <script src="jquery.minicolors.js"></script>
+<link rel="stylesheet" href="jquery.minicolors.css"> -->
+<!-- <script> data = JSON.parse('[{"question":"why","options":["option1","option2"]},{"question":"what","options":["option1","option2"]},{"question":"where","options":["option1","option2"]},{"question":"who","options":["option1","option2"]}]') </script> -->
+<!-- <script> data = JSON.parse('[{"id":1,"question":"Who will be using HUEAssist?","options":["Me","Someone Else"]},{"id":2,"question":"Do you have any of the following conditions?","options":["Colour Blindness","Dementia","C.I.P","Other"]},{"id":"3","question":"Do you have another condition?","options":["Yes","No"]},{"id":"4","question":"who","options":["option1","option2"]}]') </script> -->
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-  <div class="container">
-      <a class="navbar-brand" href="#">HueAssist</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <div class="container">
+        <a class="navbar-brand" href="#">HueAssist</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Connect <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About Us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact Us</a>
-          </li>
-        </ul>
-      </div>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Setup<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Connect</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Help</a>
+                </li>
+            </ul>
+        </div>
     </div>
-    </nav>
-
-
+</nav>
 <div class="container">
-  <div id="titlse">
-<h1 id="title">Who will be using HueAssist?</h1>
-</div>
-
-<button type="button" class="btn btn-default btn-xl" onclick="selectUser()">Me</button>
-<button type="button" class="btn btn-default btn-xl">Someone else</button>
-<button type="button" class="btn btn-default btn-xl" onclick="connectBridge()">Connect</button>
-<button type="button" class="btn btn-default btn-xl" onclick="changeLights()">colour</button>
-<br/><br/>
+  <div id ="content" class="row">
+ <div class="col-sm-9"><div id="main"></div></div>
+ <div id="sidebar" class="col-sm-3"><h4 id="infoTitle">This is a test of a heading</h4> <h6 id="infoDescription">test</h6></div>
+ </div>
+<div id="main"></div>
 </div>
 
 <script>
-const hue = jsHue();
-let ip = '';
-let lights = 0;
-let bridge;
-let username;
-let hueData = {};
 
-$(document).ready(function(){
-    
-          
 
-});
-    
-    
-function selectUser() {
-  $("#title").fadeOut(function() {
-  $(this).text("World").fadeIn();
-});
-}
 
-window.addEventListener('load', () => {
-      //GET DATA
-     fetch("https://api.worldweatheronline.com/premium/v1/weather.ashx?key=590b219e42cc4cc1ba1130439172411&q=Portsmouth&format=json&num_of_days=1")
-      //Turn Response to json
-       .then((resp) => resp.json()) 
-        // Handle Data
-       .then((data) => {
-            //get current temp
-            const temperature = data.data.current_condition[0].temp_C;
-            //get current date/time
-            let currentDate = new Date()
-            // Get current Time
-            let currentTime =  currentDate.getHours().toString() + currentDate.getMinutes().toString();
-            let nextTemp;
-            let chanceOfRain;
-            //Get current % chance of rain
-            for(hour of  data.data.weather[0].hourly){
-                //If time section is the next period return that % chance of rain
-                if(parseInt(hour.time) >= parseInt(currentTime)) {
-                  chanceOfRain = hour.chanceofrain;
-                  nextTemp = hour.tempC;
-                  break;
-                }
-              
-            }
-       
-          console.log("chace rain", hour.chanceofrain, "temp Current", temperature, "temp next", hour.tempC);
-     })
-})
+</script>
 
-function selectUser() {
-  hueshit(); 
-}
-
-function hueshit(){
-  // If already conected before re connect and change lights as conformation
-  if(localStorage.hueData){
-    console.log("connecting from saved user");
-    hueData = localStorage.hueData;
-    bridge = hue.bridge(hueData.ip);
-    user = bridge.user(hueData.username);
-    party();
-  }
-  
-  hue.discover().then(bridges => {
-    if(bridges.length === 0) {
-        console.log('No bridges found. :(');
-    }
-    else {
-        bridges.forEach(b =>  {ip = b.internalipaddress 
-                                console.log(ip)
-                              });
-    }
-  }).catch(e => console.log('Error finding bridges', e));  
-}
-
-function connectBridge(){
-  bridge = hue.bridge(ip);
-  console.log(bridge);
-  // create user account (requires link button to be pressed)
-  bridge.createUser('myApp#testdevice').then(data => {
-      
-    if(data[0].error !== undefined){
-        console.log(data[0].error.description);
-
-      }else{
-        
-        // extract bridge-generated username from returned data
-        username = data[0].success.username;
-
-        console.log('New username:', username);
-
-        // instantiate user object with username
-        user = bridge.user(username);
-        hueData.ip = ip;
-        hueData.username = username;
-        
-        localStorage.hueData = JSON.stringify(hueData);
-        //user.setLightState(1, { on: true }).then(data => {
-        // process response data, do other things
-        //});
-
-      }
-  });
-}
-function changeLights(bri, hue, sat, on) {
-  user.getLights().then((res) => {
-    for(i in res) { 
-      //console.log(i)
-      lights + 1;
-      changeLight(i, bri, hue, sat, on)
-    }
-  })
-}
-
-function changeLight(num, bri, hue, sat, on) {
-  
-  user.setLightState(num, {"on": on,"bri": bri,"sat": sat,"hue": hue})
-}
-
-function party(){
-  let max = 65280;
-  let min = 0;
-  let rand = Math.floor(Math.random() * (max - min) + min);
-  console.log(rand);
-  changeLights(255, rand, 255, true);
-}
-
-function party2() {
-  for(let i=1; i <= 3; i++) { 
-    let max = 65280;
-    let min = 0;
-    let rand = Math.floor(Math.random() * (max - min) + min);
-    console.log(rand);
-    changeLight(i, 255, rand, 255, true);
-  }
-}
+<script>
 
 
 </script>
