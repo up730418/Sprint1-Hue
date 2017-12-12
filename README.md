@@ -44,7 +44,7 @@ If a value entered is negative the array will be reversed
  `let newColour = colourValue(10, ["red","green","blue"], -5);`
  This would return a hue value that would make the lights turn a shade of blue.
  
- ##hueCommands.js
+ ## hueCommands.js
  
  This contains a number of different actions that change hue settings
  
