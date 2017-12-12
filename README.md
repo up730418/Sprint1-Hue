@@ -67,26 +67,26 @@ If a value entered is negative the array will be reversed
   - sat(saturation) Integer 0-255
   - on Boolean true/false
   
-  ### changeLightsHue(hue)
-  This takes on input:
+ ### changeLightsHue(hue)
+ This takes on input:
+  - hue Integer 0-65280
+
+  ### changeLight(num, bri, hue, sat, on)
+  This changes a specific light
+
+  It takes five  inputs:
+   - num The light number you wish to chnge 1-However manylights are in the system
+   - bri(Brightness) Integer of 0-255
    - hue Integer 0-65280
-   
-   ### changeLight(num, bri, hue, sat, on)
-   This changes a specific light
-   
-   It takes five  inputs:
-    - num The light number you wish to chnge 1-However manylights are in the system
-    - bri(Brightness) Integer of 0-255
-    - hue Integer 0-65280
-    - sat(saturation) Integer 0-255
-    - on Boolean true/false
+   - sat(saturation) Integer 0-255
+   - on Boolean true/false
 
-### party()
+  ### party()
 
-This will change all lights to the same random colour. This is useful for testing.
+  This will change all lights to the same random colour. This is useful for testing.
 
-### party2()
-This will change all lights to a different random colour. This is useful for testing.
+  ### party2()
+  This will change all lights to a different random colour. This is useful for testing.
 
 
 
