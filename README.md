@@ -8,6 +8,10 @@ The condition pathway will put all data colected in a Global variable called ans
 
 If you wish to change the condition pathway it is suggested that you edit the JSONPathway.txt file and add and remove any questions there then run it through a minifying application and change the variable data stored in js/conditionPathway.js
 
+### colourSchemes()
+ This can be used to set the hue colours variable. It users data from the answers variable to decide which colours the hues should disply and the number of steps in wach colour. 
+ This can be changed to meet your requierments.
+ 
 ## Features
 
 Features are mini applications that can be used to test the hues.
