@@ -24,9 +24,11 @@ function getWeatherData(){
             }
 
         }
+      // Find the colour the hues should be for the current temperature
       let colourToHue = colourValue(colourSteps,  hueColours, parseInt(hour.tempC));
-
-      console.log("chace rain", hour.chanceofrain, "temp Current", temperature, "temp next", hour.tempC, "colour Value", colourToHue);
+      
+      //console.log("chace rain", hour.chanceofrain, "temp Current", temperature, "temp next", hour.tempC, "colour Value", colourToHue);
+      // Set hues to the colour created by the colour algorithm
       changeLightsHue(colourToHue);
   })
  }
