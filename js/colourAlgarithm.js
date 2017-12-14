@@ -32,7 +32,7 @@ function colourValue(steps,  colours, value){
     "blue": 46920, 
     "pink": 56100, 
   }
-  
+  // number of combinations avaliable for each colour
   const colourLengths = {
     "red": 12750,
     "yellow": 6375,
@@ -46,14 +46,11 @@ function colourValue(steps,  colours, value){
 //Get colour from the colours array
   const colour = localColours[colourToPick];
 
-  console.log(colourToPick)
   //Range between each colour
   const colourLength = colourLengths[colour];
-  console.log(colourLength)
   
 //Setup the amount of to increase the colour per value 
   const step = colourLength / steps; 
-  console.log(step);
   const stepNumber = value % steps;
   let stepValue; 
   
@@ -67,7 +64,7 @@ function colourValue(steps,  colours, value){
   
 //set the colur value that should be sent to the hue
   const colourValue = Math.trunc(colourValues[colour] + stepValue);
-  console.log(colourValue)
+
   return colourValue;
   
 }
