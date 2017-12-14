@@ -175,7 +175,7 @@ function onOptionClick(answer,target) {
         "answer": answer,
         "randID": randID
     });
-    console.log(answers);
+
     dimQuestion();
     randID = Math.random();
     newQuestion(target);
@@ -234,6 +234,8 @@ function dimQuestion() {
 
 }
 
+//Set avaliable colours for the colour algarithum to pick from
+// and the number of steps in each colour
 function colourSchemes()  {
   const redGreen = answers.find((ans) => {return ans.answer == "Red-Green"});
 
@@ -241,18 +243,25 @@ function colourSchemes()  {
 
   const complete = answers.find((ans) => {return ans.answer == "Complete"});
 
+  // User has Red-Green CVD
   if (redGreen !== undefined) {
     hueColours = ["blue", "yellow"];
     colourSteps = 25;
-  } else if (blueYellow !== undefined) {
+  }
+  // user has Blue-Yellow CVD
+  else if (blueYellow !== undefined) {
     hueColours = ["red", "green"];
     colourSteps = 25;
 
-  } else if (complete !== undefined) {
+  } 
+  // user has complete CVD
+  else if (complete !== undefined) {
     hueColours = ["yellow", "red"];
     colourSteps = 25;
 
-  } else {
+  } 
+  // user has no CVD
+  else {
     hueColours = ["blue", "green", "yellow", "red", "pink"];
     colourSteps = 10;
   }
