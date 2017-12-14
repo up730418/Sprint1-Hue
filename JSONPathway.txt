@@ -98,7 +98,7 @@
   {
     "id": "4",
     "question": "Lets Connect to your Hue.",
-	"title": "Fuck. It's been fun.",
+	"title": "It's been fun.",
 	"description": "I'll never forget you, how could I? With blue eyes, long hair like that and stage 5 dementia theres no way I could forget you.",
     "options": [
       {
