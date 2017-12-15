@@ -101,3 +101,9 @@ If a value entered is negative the array will be reversed
 The code for this can be found at js/weateherApp.js
 
 This is a basic application that will check for the weather forecast in portsmouth, Then find what colour the hue should be through the colour algorithm then uses changeLightsHue() to set the hue of all lights on the network.
+
+## Custom Spectrums 
+
+We have written functions to create custom spectrums, in order to do this you must call the function elimColourFunctionFromSpectrum(), this will remove a given colour in the range defined. More colour ranges can be added in the corresponding JSON file.
+
+The function accepts an array of colours, in order to remove multiple at once. To do this use the function in the format elimColourFromSpectrum(['blue']) this must be done by specifying the larger wavelengths first as the splicing happens from back to front.
