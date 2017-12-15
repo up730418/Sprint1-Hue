@@ -106,7 +106,7 @@ function newQuestion(index) {
     if(counter> 1)
     {
         colourindex += 1;
-        buttonContain.innerHTML += '<button type="button" onClick="onBackClick()" class="btn '+backColour+' btn-l">↱</button> ';
+        buttonContain.innerHTML += '<button type="button" onClick="onBackClick()" class="btn '+backColour+' btn-l">&#8625;</button> ';
     }
 
     const numOfOptions = chosen.options.length;
