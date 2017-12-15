@@ -32,7 +32,7 @@ function elimColourFromSpectrum(coloursToRemove)
   }
 // fade(red,blue,12,1000) will fade from red to blue in 12 steps, every 1 sec
 // fade('brown','yellow',50,250)
-async function fadeSpectrum(s,time)
+async function fadeSpectrum(s,time);
 {
   let scale = s;
       // .mode('lab').colors(steps);
